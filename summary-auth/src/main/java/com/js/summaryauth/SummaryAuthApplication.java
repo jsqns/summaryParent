@@ -1,13 +1,13 @@
-package com.js.common;
+package com.js.summaryauth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CommonApplication {
+public class SummaryAuthApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CommonApplication.class, args);
+        SpringApplication.run(SummaryAuthApplication.class, args);
     }
 
 }
