@@ -1,8 +1,8 @@
 package com.js.summary.service;
 
-import com.js.summary.common.Result;
-import com.js.summary.entity.Summary;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.js.common.response.Result;
+import com.js.summary.entity.Summary;
 
 import java.util.List;
 

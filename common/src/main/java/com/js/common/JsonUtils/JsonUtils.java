@@ -1,5 +1,6 @@
-package com.js.summary.common.utils;
+package com.js.common.JsonUtils;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.util.TypeUtils;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -8,7 +9,6 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
-import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +45,7 @@ public class JsonUtils {
      * return  T
      */
     public static <T> T jsonToBean(String json, Class<T> valueType) {
-        if (!Strings.isNullOrEmpty(json)) {
+        if (StrUtil.isNotBlank(json)) {
             try {
                 return getInstance().readValue(json, valueType);
             } catch (JsonParseException e) {
@@ -103,7 +103,7 @@ public class JsonUtils {
      */
     public static <T> List<T> jsonToList(String json, Class<T> clazz) {
         List<T> list = null;
-        if (!Strings.isNullOrEmpty(json)) {
+        if (StrUtil.isNotBlank(json)) {
             try {
                 // 适配javaType=java.util.List的旧代码
                 if(clazz.isAssignableFrom(List.class)) {

@@ -1,6 +1,6 @@
 package com.js.summary.typeHandler;
 
-import com.js.summary.common.utils.JsonUtils;
+import com.js.common.JsonUtils.JsonUtils;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 

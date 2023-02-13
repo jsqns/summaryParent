@@ -1,4 +1,4 @@
-package com.js.summary.common;
+package com.js.common.response;
 
 import lombok.Getter;
 

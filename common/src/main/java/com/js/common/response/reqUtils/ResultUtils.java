@@ -1,7 +1,7 @@
-package com.js.summary.common.utils;
+package com.js.common.response.reqUtils;
 
 
-import com.js.summary.common.Result;
+import com.js.common.response.Result;
 
 public class ResultUtils {
     public static<T> Result<T> createSuccessRes(T data){

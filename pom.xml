@@ -28,9 +28,15 @@
         <hutool.version>5.8.5</hutool.version>
         <swagger2.version>1.1.2</swagger2.version>
         <knife4j.version>3.0.2</knife4j.version>
+        <joda-time.version>2.9.5</joda-time.version>
     </properties>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda-time.version}</version>
+            </dependency>
             <!-- swagger增强版ui，相比官方ui，界面更美观，功能更强大 -->
             <!-- 如果springBoot版本过高，可能会出现错误 -->
             <dependency>
