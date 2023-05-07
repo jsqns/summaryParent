@@ -7,9 +7,11 @@
     <resultMap id="BaseResultMap" type="com.js.summary.entity.Summary">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="summary" column="summary" javaType="java.lang.Long" typeHandler="com.js.summary.typeHandler.ListTypeHandler"/>
+            <result property="version" column="version" javaType="java.lang.Integer" />
+            <result property="testVersion" column="test_version" javaType="java.lang.Integer" />
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,summary
+        id,summary,version,testVersion
     </sql>
 </mapper>

@@ -17,6 +17,16 @@ public class SummaryController {
     @Resource
     private SummaryService summaryService;
 
+    @PostMapping("/update1")
+    public Result update1(){
+        return summaryService.update1();
+    }
+
+    @PostMapping("/update2")
+    public Result update2(){
+        return summaryService.update2();
+    }
+
     @GetMapping("/getAll")
     public Result<List<Long>> get(){
         return summaryService.get();

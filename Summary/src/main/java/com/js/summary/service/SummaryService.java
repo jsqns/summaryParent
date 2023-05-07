@@ -16,4 +16,8 @@ public interface SummaryService extends IService<Summary> {
     Result<List<Long>> get();
 
     Result<Summary> saveOne(Summary summary);
+
+    Result update1();
+
+    Result update2();
 }

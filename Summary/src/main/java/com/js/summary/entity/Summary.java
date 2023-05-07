@@ -32,6 +32,9 @@ public class Summary implements Serializable {
     @ApiModelProperty(value = "summary")
     private List<Long> summary;
 
+    private Integer version;
+    private Integer testVersion;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
