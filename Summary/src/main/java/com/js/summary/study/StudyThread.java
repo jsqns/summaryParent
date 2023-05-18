@@ -11,7 +11,9 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
+class Solution {
 
+}
 public class StudyThread {
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         Semaphore semaphore = new Semaphore(2);
@@ -34,7 +36,11 @@ public class StudyThread {
         runnable.run();
     }
 }
-
+class V{
+    public static void main(String[] args) {
+        System.out.println(Integer.MAX_VALUE);
+    }
+}
 class CallableDemo {
     public static void main(String[] args) throws InterruptedException {
         ExecutorService exec = Executors.newCachedThreadPool();

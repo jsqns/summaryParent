@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -18,7 +19,7 @@ public class SummaryController {
     private SummaryService summaryService;
 
     @PostMapping("/update1")
-    public Result update1(){
+    public Result update1() throws IOException {
         return summaryService.update1();
     }
 

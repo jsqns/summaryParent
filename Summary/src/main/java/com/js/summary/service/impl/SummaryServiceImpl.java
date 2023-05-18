@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
 import java.util.List;
 
 /**
@@ -58,7 +61,10 @@ public class SummaryServiceImpl extends ServiceImpl<SummaryMapper, Summary>
 
     @Override
     @Transactional
-    public Result update1() {
+    public Result update1() throws IOException {
+        Selector selector = Selector.open();
+        ServerSocketChannel open = ServerSocketChannel.open();
+//        open.register();
         Summary byId = this.getById(2);
 //        byId.getSummary().add(400L);
         byId.setTestVersion(byId.getTestVersion() + 1);

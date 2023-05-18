@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.js.common.response.Result;
 import com.js.summary.entity.Summary;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public interface SummaryService extends IService<Summary> {
 
     Result<Summary> saveOne(Summary summary);
 
-    Result update1();
+    Result update1() throws IOException;
 
     Result update2();
 }
