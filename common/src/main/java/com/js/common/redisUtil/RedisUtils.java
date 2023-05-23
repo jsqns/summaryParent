@@ -1,6 +1,8 @@
 package com.js.common.redisUtil;
 
 
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +14,8 @@ import java.util.Objects;
 public class RedisUtils {
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
-
+    @Resource
+    private RedissonClient redissonClient;
     public void lPush(String key, Object element){
         Long aLong = redisTemplate.opsForList().leftPush(key, element);
     }
