@@ -44,6 +44,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void saveToken2Redis(String token) {
-        redisUtils.setKey(RedisKeys.QUEUE_LIST.getKey(),token);
+        redisUtils.lPush(RedisKeys.QUEUE_LIST.getKey(),token);
     }
 }
