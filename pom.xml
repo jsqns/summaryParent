@@ -37,9 +37,17 @@
         <spring-boot-starter-data-redis.version>2.0.1.RELEASE</spring-boot-starter-data-redis.version>
         <commons-pool2.version>2.6.0</commons-pool2.version>
         <redisson.version>2.13.2</redisson.version>
+        <feign.version>2.2.0.RELEASE</feign.version>
     </properties>
     <dependencyManagement>
         <dependencies>
+            <!--feign客户端依赖-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>${feign.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson-spring-boot-starter</artifactId>

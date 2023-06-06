@@ -1,6 +1,7 @@
 package com.js.summary.study;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
@@ -39,6 +40,31 @@ public class StudyThread {
 class V{
     public static void main(String[] args) {
         System.out.println(Integer.MAX_VALUE);
+    }
+}
+
+class Solution1 {
+    public static void main(String[] args) {
+        int[] nums = {
+                10,9,2,5,3,7,101,18};
+        lengthOfLIS(nums);
+    }
+    public static int lengthOfLIS(int[] nums) {
+        //定义dp数组dp[i]表示以nums[i]结尾的最大长度
+        int[] dp = new int[nums.length];
+        //递推公式dp[i] = max(dp[i],dp[j] +1)
+        //初始化
+        Arrays.fill(dp,1);
+        for (int i = 1; i < nums.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j])dp[i] =  Math.max(dp[i],dp[j] +1);
+            }
+        }
+        int res = 1;
+        for (int i : dp) {
+            res = Math.max(i,res);
+        }
+        return res;
     }
 }
 class CallableDemo {

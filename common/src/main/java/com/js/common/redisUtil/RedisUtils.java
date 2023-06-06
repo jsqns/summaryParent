@@ -20,6 +20,10 @@ public class RedisUtils {
         Long aLong = redisTemplate.opsForList().leftPush(key, element);
     }
 
+    public String lIndex(String key, Integer index){
+        return (String) redisTemplate.opsForList().index(key, index);
+    }
+
     public void setKey(String key, String value){
         redisTemplate.opsForValue().set(key,value);
     }

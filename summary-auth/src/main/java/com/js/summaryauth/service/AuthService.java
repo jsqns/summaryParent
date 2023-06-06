@@ -8,4 +8,6 @@ public interface AuthService {
     Result getTokenByUserInfo(JwtInfo jwtInfo) throws Exception;
 
     void saveToken2Redis(String token);
+
+    Result<String> getRandomNum();
 }

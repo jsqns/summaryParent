@@ -1,5 +1,6 @@
 package com.js.summaryauth.service.impl;
 
+import com.js.common.RandomUtil;
 import com.js.common.comtants.CommonConstants;
 import com.js.common.jwt.JwtInfo;
 import com.js.common.jwt.JwtUtils.JwtHelper;
@@ -16,7 +17,9 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Map;
+import java.util.Random;
 
 
 @Service
@@ -45,5 +48,13 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void saveToken2Redis(String token) {
         redisUtils.lPush(RedisKeys.QUEUE_LIST.getKey(),token);
+    }
+
+    @Override
+    public Result<String> getRandomNum() {
+        int i = RandomUtil.getRandomInt();
+        String s = redisUtils.lIndex(RedisKeys.QUEUE_LIST.getKey(), 0);
+        Result<String> successRes = ResultUtils.createSuccessRes(i + s);
+        return successRes;
     }
 }
