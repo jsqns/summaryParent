@@ -1,5 +1,7 @@
 package com.js.summary.study;
 
+import org.bouncycastle.asn1.x509.qualified.RFC3739QCObjectIdentifiers;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.Callable;
@@ -13,6 +15,22 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 class Solution {
+    //输入：target = 7, nums = [2,3,1,2,4,3]
+    public static void main(String[] args) {
+        int[] nums = {2,3,1,2,4,3};
+    }
+    public int[][] generateMatrix(int n) {
+        int[][] res = new int[n][n];
+        int e = 1;
+        //表示从头到尾 还是从尾到头
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                res[i][j] = e;
+                e++;
+            }
+        }
+        return res;
+    }
 
 }
 public class StudyThread {

@@ -37,7 +37,7 @@
         <spring-boot-starter-data-redis.version>2.0.1.RELEASE</spring-boot-starter-data-redis.version>
         <commons-pool2.version>2.6.0</commons-pool2.version>
         <redisson.version>2.13.2</redisson.version>
-        <feign.version>2.2.0.RELEASE</feign.version>
+        <feign.version>2.1.3.RELEASE</feign.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -48,17 +48,17 @@
                 <version>${feign.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.redisson</groupId>
-                <artifactId>redisson-spring-boot-starter</artifactId>
-                <version>${redisson.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.redisson</groupId>
-                        <artifactId>redisson-spring-data</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.redisson</groupId>-->
+<!--                <artifactId>redisson-spring-boot-starter</artifactId>-->
+<!--                <version>${redisson.version}</version>-->
+<!--                <exclusions>-->
+<!--                    <exclusion>-->
+<!--                        <groupId>org.redisson</groupId>-->
+<!--                        <artifactId>redisson-spring-data</artifactId>-->
+<!--                    </exclusion>-->
+<!--                </exclusions>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-redis</artifactId>
