@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/auth/service")
@@ -19,6 +20,10 @@ public class AuthController {
     private AuthService authService;
 
 
+    @PostMapping("/getPdf")
+    public Result getPdf(HttpServletResponse httpServletResponse){
+        return authService.getPdf(httpServletResponse);
+    }
     @GetMapping("/getRandomNum")
     public Result getRandomNum(){
         return authService.getRandomNum();

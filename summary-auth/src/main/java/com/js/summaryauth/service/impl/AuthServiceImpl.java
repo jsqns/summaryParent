@@ -5,12 +5,16 @@ import com.js.common.comtants.CommonConstants;
 import com.js.common.jwt.JwtInfo;
 import com.js.common.jwt.JwtUtils.JwtHelper;
 import com.js.common.priKeyUtils.RsaKeyHelper;
+import com.js.common.rabbitmq.RabbitMqConfig;
+import com.js.common.rabbitmq.RabbitMqQueueNameEnum;
 import com.js.common.redisUtil.RedisKeys;
 //import com.js.common.redisUtil.RedisUtils;
 import com.js.common.response.Result;
 import com.js.common.response.reqUtils.ResultUtils;
+import com.js.common.utils.mqUtils.RabbitMqUtil;
 import com.js.summaryauth.config.KeyConfig;
 import com.js.summaryauth.service.AuthService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -37,6 +41,8 @@ public class AuthServiceImpl implements AuthService {
     private KeyConfig keyConfig;
 //    @Resource
 //    private RedisUtils redisUtils;
+    @Resource
+    private RabbitMqUtil rabbitMqUtil;
 
     @PostConstruct
     public void intPriKey() throws IOException, NoSuchAlgorithmException {
@@ -84,6 +90,10 @@ public class AuthServiceImpl implements AuthService {
         httpServletResponse.setContentType("application/pdf");
         ServletOutputStream outputStream = null;
         FileInputStream fileInputStream = null;
+//        rabbitTemplate.convertAndSend(RabbitMqConfig.SIMPLE_QUEUE, "测试111".getBytes());
+//        rabbitTemplate.convertAndSend(RabbitMqConfig.FANOUT_EXCHANGE, "", "测试222".getBytes());
+//        rabbitTemplate.convertAndSend(RabbitMqConfig.TOPIC_EXCHANGE,"queue1.111", "主题队列11".getBytes());
+        rabbitMqUtil.send(RabbitMqConfig.BUSINESS_EXCHANGE,"111","测试"+System.currentTimeMillis());
         try {
             outputStream = httpServletResponse.getOutputStream();
             fileInputStream = new FileInputStream(file);
@@ -94,13 +104,16 @@ public class AuthServiceImpl implements AuthService {
             }
 //            outputStream.write(bytes);
             outputStream.flush();
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }finally {
             try {
-                fileInputStream.close();
-                outputStream.close();
+                if (fileInputStream != null){
+                    fileInputStream.close();
+                }
+                if (outputStream != null){
+                    outputStream.close();
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

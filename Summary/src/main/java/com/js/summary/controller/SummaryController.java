@@ -2,13 +2,16 @@ package com.js.summary.controller;
 
 
 import com.js.common.response.Result;
+import com.js.common.response.reqUtils.ResultUtils;
 import com.js.summary.entity.Summary;
+import com.js.summary.factory.PriceComputeFactory;
 import com.js.summary.service.SummaryService;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -18,6 +21,11 @@ public class SummaryController {
     @Resource
     private SummaryService summaryService;
 
+    @GetMapping("/getPrice")
+    public Result getPrice(String key, BigDecimal price){
+        BigDecimal compute = PriceComputeFactory.getPriceComputeService(key).compute(price);
+        return ResultUtils.createSuccessRes(compute);
+    }
     @PostMapping("/update1")
     public Result update1() throws IOException {
         return summaryService.update1();

@@ -9,9 +9,16 @@ spring:
     name: summary
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://150.158.17.217:3306/study?characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/study?characterEncoding=utf-8&useSSL=false
     username: root
     password: 123456
+  rabbitmq:
+    addresses: localhost
+    username: admin
+    password: admin
+    virtual-host: my_vhost
+    #开启生产者消息确认
+    publisher-confirms-type: correlated
 #####  swagger文档部分配置 ####
 swagger:
   # 生产环境改为false（改为false后swagger-ui.html则无法访问）
