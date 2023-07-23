@@ -1,19 +1,17 @@
 package com.js.summaryauth.feign;
 
 
-import org.springframework.cloud.openfeign.FeignClient;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.Semaphore;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 //@FeignClient
-public interface SummaryFeign {
+public interface ThreadPoolTest {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 //        Semaphore semaphore = new Semaphore(3);
 

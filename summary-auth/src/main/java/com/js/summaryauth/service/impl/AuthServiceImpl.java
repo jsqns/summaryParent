@@ -7,8 +7,6 @@ import com.js.common.jwt.JwtUtils.JwtHelper;
 import com.js.common.priKeyUtils.RsaKeyHelper;
 import com.js.common.rabbitmq.RabbitMqConfig;
 import com.js.common.rabbitmq.RabbitMqQueueNameEnum;
-import com.js.common.redisUtil.RedisKeys;
-//import com.js.common.redisUtil.RedisUtils;
 import com.js.common.response.Result;
 import com.js.common.response.reqUtils.ResultUtils;
 import com.js.common.utils.mqUtils.RabbitMqUtil;

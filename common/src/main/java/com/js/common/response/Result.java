@@ -12,6 +12,10 @@ public class Result<T> {
     public Result(){
         this.status = ResultConstant.SUCCESS.getStatus();
     }
+    public Result(Integer status, String message){
+        this.status = status;
+        this.message = message;
+    }
     public Result(T data){
         this.data = data;
         this.status = ResultConstant.SUCCESS.getStatus();

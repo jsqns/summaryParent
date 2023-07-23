@@ -1,4 +1,4 @@
-package com.js.common.redisUtil;
+package com.js.common.utils.redisUtil;
 
 import lombok.Getter;
 

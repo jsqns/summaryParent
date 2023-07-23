@@ -4,6 +4,8 @@ import org.bouncycastle.asn1.x509.qualified.RFC3739QCObjectIdentifiers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -33,37 +35,78 @@ class Solution {
         ListNode listNode3 = new ListNode(3,listNode4);
         ListNode listNode2 = new ListNode(2,listNode3);
         ListNode listNode1 = new ListNode(1, listNode2);
-        String s =
-                "23";
+        int[] arr = {4,4,2,1,4,2,2,1,3};
         Solution solution = new Solution();
-        for (String letterCombination : solution.letterCombinations(s)) {
-            System.out.println(letterCombination);
-        }
+        solution.partition("aab");
+
     }
-    String[] m = {"","","abc","def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-    List<String> res = new ArrayList<>();
-    StringBuilder path = new StringBuilder();
-    public List<String> letterCombinations(String digits) {
-        if (digits.length() == 0)return res;
-        List<String> digitList = new ArrayList<>();
-        for (char c : digits.toCharArray()) {
-            digitList.add(m[Integer.parseInt(String.valueOf(c))]);
-        }
-        re(digitList, 0,  path);
-        return res;
+    List<List<String>> lists = new ArrayList<>();
+    Deque<String> deque = new LinkedList<>();
+
+    public List<List<String>> partition(String s) {
+        backTracking(s, 0);
+        return lists;
     }
-    public void re(List<String> digitList , int index, StringBuilder path){
-        if (path.toString().length() == digitList.size()){
-            res.add(path.toString());
+
+    private void backTracking(String s, int startIndex) {
+        //如果起始位置大于s的大小，说明找到了一组分割方案
+        if (startIndex >= s.length()) {
+            lists.add(new ArrayList(deque));
             return;
         }
-        for (int i = 0; i < digitList.get(index).length(); i++) {
-            char s = digitList.get(index).charAt(i);
-            path.append(s);
-            re(digitList, index +1, path);
-            path.delete(path.length() -1, path.length());
+        for (int i = startIndex; i < s.length(); i++) {
+            //如果是回文子串，则记录
+            if (isPalindrome(s, startIndex, i)) {
+                String str = s.substring(startIndex, i + 1);
+                deque.addLast(str);
+            } else {
+                continue;
+            }
+            //起始位置后移，保证不重复
+            backTracking(s, i + 1);
+            deque.removeLast();
         }
     }
+    //判断是否是回文串
+    private boolean isPalindrome(String s, int startIndex, int end) {
+        for (int i = startIndex, j = end; i < j; i++, j--) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    List<List<String>> res = new ArrayList<>();
+    List<String> path = new ArrayList<>();
+    StringBuilder sb = new StringBuilder();
+
+    public void reBack(String s, int index){
+        if (index >= s.length()){
+            res.add(new ArrayList<>(path));
+        }
+        for (int i = index; i < s.length(); i++) {
+            sb.append(s.charAt(i));
+            if (check(sb.toString())){
+                path.add(sb.toString());
+            }else {
+                continue;
+            }
+            reBack(s, i+1);
+            sb.deleteCharAt(sb.length() -1);
+            path.remove(path.size() -1);
+        }
+    }
+    public boolean check(String s){
+        int left = 0;
+        int right = s.length() -1;
+        while (left <= right){
+            if (s.charAt(left) != s.charAt(right))return false;
+            left++;
+            right--;
+        }
+        return true;
+    }
+
     public int evalRPN(String[] tokens) {
         Deque<Integer> stack = new LinkedList<>();
         for (String token : tokens) {
@@ -117,7 +160,6 @@ class Solution {
         return stack.isEmpty();
     }
 
-    static int sum = 0;
     public int[] maxSlidingWindow(int[] nums, int k) {
         return nums;
     }

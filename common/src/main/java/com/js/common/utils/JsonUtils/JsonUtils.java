@@ -1,4 +1,4 @@
-package com.js.common.JsonUtils;
+package com.js.common.utils.JsonUtils;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.util.TypeUtils;
@@ -9,8 +9,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,13 +17,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@Slf4j
 public class JsonUtils {
     static {
         TypeUtils.compatibleWithJavaBean = true;
     }
 
-    private static final Logger logger = LoggerFactory.getLogger(JsonUtils.class);
     private static JsonUtils jacksonUtil = new JsonUtils();
 
     private static ObjectMapper mapper;
@@ -48,12 +46,8 @@ public class JsonUtils {
         if (StrUtil.isNotBlank(json)) {
             try {
                 return getInstance().readValue(json, valueType);
-            } catch (JsonParseException e) {
-                logger.error(e.getMessage(), e);
-            } catch (JsonMappingException e) {
-                logger.error(e.getMessage(), e);
-            } catch (IOException e) {
-                logger.error(e.getMessage(), e);
+            } catch (Exception e) {
+                log.error(e.getMessage());
             }
         }
         return null;
@@ -63,7 +57,6 @@ public class JsonUtils {
         try {
             return getInstance().readValue(json, typeReference);
         } catch (IOException e) {
-            logger.error("jsonToGenericBean解析失败，{}", e.getMessage(), e);
         }
         return null;
     }
@@ -85,11 +78,8 @@ public class JsonUtils {
         try {
             return getInstance().writeValueAsString(bean);
         } catch (JsonGenerationException e) {
-            logger.error(e.getMessage(), e);
         } catch (JsonMappingException e) {
-            logger.error(e.getMessage(), e);
         } catch (IOException e) {
-            logger.error(e.getMessage(), e);
         }
         return null;
     }
@@ -115,11 +105,8 @@ public class JsonUtils {
                     list = getInstance().readValue(json, listType);
                 }
             } catch (JsonGenerationException e) {
-                logger.error(e.getMessage(), e);
             } catch (JsonMappingException e) {
-                logger.error(e.getMessage(), e);
             } catch (IOException e) {
-                logger.error(e.getMessage(), e);
             }
         }
         return list;
@@ -140,11 +127,8 @@ public class JsonUtils {
         try {
             str = getInstance().writeValueAsString(list);
         } catch (JsonGenerationException e) {
-            logger.error(e.getMessage(), e);
         } catch (JsonMappingException e) {
-            logger.error(e.getMessage(), e);
         } catch (IOException e) {
-            logger.error(e.getMessage(), e);
         }
         return str;
     }

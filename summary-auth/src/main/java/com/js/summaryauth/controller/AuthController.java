@@ -4,6 +4,7 @@ package com.js.summaryauth.controller;
 import com.js.common.jwt.JwtInfo;
 import com.js.common.response.Result;
 import com.js.summaryauth.service.AuthService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/auth/service")
+@Slf4j
 public class AuthController {
     @Resource
     private AuthService authService;
@@ -26,6 +28,7 @@ public class AuthController {
     }
     @GetMapping("/getRandomNum")
     public Result getRandomNum(){
+        log.info("getRandomNum");
         return authService.getRandomNum();
     }
 

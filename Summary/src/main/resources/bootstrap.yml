@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: summary-service
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        group: DEFAULT_GROUP
+        name: summary
+        file-extension: yaml
