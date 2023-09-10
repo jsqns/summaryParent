@@ -10,6 +10,7 @@ public class Solution111 {
 
     public static void main(String[] args) {
         String[] words = {"cat","banana","dog","nana","walk","walker","dogwalker"};
+        words[0] = "1";
         System.out.println(longestWord(words));
     }
     public static String longestWord(String[] words){

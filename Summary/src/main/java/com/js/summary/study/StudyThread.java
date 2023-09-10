@@ -37,74 +37,56 @@ class Solution {
         ListNode listNode1 = new ListNode(1, listNode2);
         int[] arr = {4,4,2,1,4,2,2,1,3};
         Solution solution = new Solution();
-        solution.partition("aab");
+        solution.restoreIpAddresses("25525511135");
 
     }
-    List<List<String>> lists = new ArrayList<>();
-    Deque<String> deque = new LinkedList<>();
+    int ans = 0;
 
-    public List<List<String>> partition(String s) {
-        backTracking(s, 0);
-        return lists;
+    public int maxConsecutiveAnswers(String answerKey, int k) {
+        
+        return Math.max(getLen(answerKey, 'T', k), getLen(answerKey, 'F',k));
     }
-
-    private void backTracking(String s, int startIndex) {
-        //如果起始位置大于s的大小，说明找到了一组分割方案
-        if (startIndex >= s.length()) {
-            lists.add(new ArrayList(deque));
+    public int getLen(String s, char c, int k){
+        int resNum = 0;
+        for (int i = 0,j = 0; i < s.length(); i++) {
+            if (s.charAt(i) == c) ans++;
+            while (ans > k){
+                if (s.charAt(j) == c)ans--;
+                j++;
+            }
+            resNum = Math.max(resNum, i -j +1);
+        }
+        return resNum;
+    }
+    List<String> res = new ArrayList<>();
+    StringBuilder sb = new StringBuilder();
+    public List<String> restoreIpAddresses(String s) {
+        sb = new StringBuilder(s);
+        reBack(s,0);
+        return res;
+    }
+    public void reBack(String s, int index){
+        if (index == 3){
+            if (check(s.substring(index))) {
+                sb = new StringBuilder(s);
+                res.add(sb.toString());
+            }
             return;
         }
-        for (int i = startIndex; i < s.length(); i++) {
-            //如果是回文子串，则记录
-            if (isPalindrome(s, startIndex, i)) {
-                String str = s.substring(startIndex, i + 1);
-                deque.addLast(str);
-            } else {
-                continue;
-            }
-            //起始位置后移，保证不重复
-            backTracking(s, i + 1);
-            deque.removeLast();
-        }
-    }
-    //判断是否是回文串
-    private boolean isPalindrome(String s, int startIndex, int end) {
-        for (int i = startIndex, j = end; i < j; i++, j--) {
-            if (s.charAt(i) != s.charAt(j)) {
-                return false;
-            }
-        }
-        return true;
-    }
-    List<List<String>> res = new ArrayList<>();
-    List<String> path = new ArrayList<>();
-    StringBuilder sb = new StringBuilder();
-
-    public void reBack(String s, int index){
-        if (index >= s.length()){
-            res.add(new ArrayList<>(path));
-        }
-        for (int i = index; i < s.length(); i++) {
-            sb.append(s.charAt(i));
-            if (check(sb.toString())){
-                path.add(sb.toString());
-            }else {
-                continue;
+        for (int i = index; i < 4; i++) {
+            if (!check(s.substring(index, i +1))){
+                break;
             }
             reBack(s, i+1);
-            sb.deleteCharAt(sb.length() -1);
-            path.remove(path.size() -1);
         }
     }
     public boolean check(String s){
-        int left = 0;
-        int right = s.length() -1;
-        while (left <= right){
-            if (s.charAt(left) != s.charAt(right))return false;
-            left++;
-            right--;
+        long value = Long.parseLong(s);
+        if (value >= 0L && value <= 255L){
+            sb.insert(sb.lastIndexOf(".") +s.length()+1, '.');
+            return true;
         }
-        return true;
+        return false;
     }
 
     public int evalRPN(String[] tokens) {

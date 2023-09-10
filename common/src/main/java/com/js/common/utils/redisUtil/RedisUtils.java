@@ -13,6 +13,10 @@ public class RedisUtils {
     private RedisTemplate<String, Object> redisTemplate;
     @Resource
     private RedissonClient redissonClient;
+
+    public Long incr(String key){
+        return redisTemplate.opsForValue().increment(key);
+    }
     public void lPush(String key, Object element){
         Long aLong = redisTemplate.opsForList().leftPush(key, element);
     }

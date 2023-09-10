@@ -1,6 +1,6 @@
 spring:
   application:
-    name: summary-service
+    name: summary
   cloud:
     nacos:
       config:

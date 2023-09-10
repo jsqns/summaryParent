@@ -10,9 +10,13 @@ import com.js.common.rabbitmq.RabbitMqQueueNameEnum;
 import com.js.common.response.Result;
 import com.js.common.response.reqUtils.ResultUtils;
 import com.js.common.utils.mqUtils.RabbitMqUtil;
+import com.js.common.utils.redisUtil.RedisKeys;
+import com.js.common.utils.redisUtil.RedisUtils;
 import com.js.summaryauth.config.KeyConfig;
 import com.js.summaryauth.service.AuthService;
+import com.js.summaryauth.service.TestServiceI;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -24,6 +28,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -37,10 +42,12 @@ public class AuthServiceImpl implements AuthService {
 
     @Resource
     private KeyConfig keyConfig;
-//    @Resource
-//    private RedisUtils redisUtils;
+    @Resource
+    private RedisUtils redisUtils;
     @Resource
     private RabbitMqUtil rabbitMqUtil;
+    @Autowired
+    private List<TestServiceI> serviceIList;
 
     @PostConstruct
     public void intPriKey() throws IOException, NoSuchAlgorithmException {
@@ -63,8 +70,12 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public Result<String> getRandomNum() {
-        int i = RandomUtil.getRandomInt();
-//        String s = redisUtils.lIndex(RedisKeys.QUEUE_LIST.getKey(), 0);
+//        int i = RandomUtil.getRandomInt();
+        for (TestServiceI testServiceI : serviceIList) {
+            String s = testServiceI.testService();
+            System.out.println(s);
+        }
+        Long i = redisUtils.incr("incr");
         Result<String> successRes = ResultUtils.createSuccessRes(i + "s");
         return successRes;
     }
