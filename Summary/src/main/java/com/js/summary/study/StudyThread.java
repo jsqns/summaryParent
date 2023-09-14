@@ -35,13 +35,113 @@ class Solution {
         ListNode listNode3 = new ListNode(3,listNode4);
         ListNode listNode2 = new ListNode(2,listNode3);
         ListNode listNode1 = new ListNode(1, listNode2);
-        int[] arr = {4,4,2,1,4,2,2,1,3};
+        int[] arr = {10,1,2,7,6,1,5};
         Solution solution = new Solution();
-        solution.restoreIpAddresses("25525511135");
+        for (List<String> list : solution.partition("aab")) {
+            System.out.println(list.toString());
+        }
 
     }
-    int ans = 0;
+    //分割回文子字符串
+    List<List<String>> partitionRes = new ArrayList<>();
+    List<String> partitionPath = new ArrayList<>();
+    public List<List<String>> partition(String s) {
+        partitionBack(s, 0);
+        return partitionRes;
+    }
+    public void partitionBack(String s, int index){
+        if (index >= s.length()){
+            if (!partitionPath.isEmpty()){
+                partitionRes.add(new ArrayList<>(partitionPath));
+            }
+            return;
+        }
+        for (int i = index; i < s.length(); i++) {
+            if (partitionCheck(s, index, i)){
+                partitionPath.add(s.substring(index, i +1));
+            }else {
+                continue;
+            }
+            partitionBack(s, i +1);
+            if (!partitionPath.isEmpty()){
+                partitionPath.remove(partitionPath.size() -1);
+            }
+        }
 
+    }
+    public boolean partitionCheck(String s, int start, int end){
+        while (start < end){
+            if (s.charAt(start) != s.charAt(end)){
+                return false;
+            }
+            end--;
+            start++;
+        }
+        return true;
+    }
+
+    //组合总和2
+    List<List<Integer>> resCombinationSum2 = new ArrayList<>();
+    List<Integer> pathCombinationSum2 = new ArrayList<>();
+    int sumCombinationSum2 = 0;
+    boolean[] used ;
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        used = new boolean[candidates.length];
+        Arrays.fill(used, false);
+        Arrays.sort(candidates);
+        combinationSum2Back(candidates, target, 0);
+        return resCombinationSum2;
+    }
+    public void combinationSum2Back(int[] candidates, int target, int index){
+        if (sumCombinationSum2 == target){
+            resCombinationSum2.add(new ArrayList<>(pathCombinationSum2));
+            return;
+        }
+        for (int i = index; i < candidates.length; i++) {
+            if (sumCombinationSum2 + candidates[i] > target){
+                break;
+            }
+            if (i >0 && candidates[i] == candidates[i -1] && !used[i -1]){
+                continue;
+            }
+            sumCombinationSum2 +=  candidates[i];
+            pathCombinationSum2.add(candidates[i]);
+            used[i] = true;
+            combinationSum2Back(candidates, target, i +1);
+            used[i] = false;
+            sumCombinationSum2 -= candidates[i];
+            pathCombinationSum2.remove(pathCombinationSum2.size() -1);
+        }
+    }
+
+    //组合综合1
+    List<List<Integer>> resCombinationSum = new ArrayList<>();
+    List<Integer> path = new ArrayList<>();
+    int sum = 0;
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        //升序排列
+        Arrays.sort(candidates);
+        combinationSumBack(candidates, target, path, 0);
+        return resCombinationSum;
+    }
+    public void combinationSumBack(int[] candidates, int target, List<Integer> path, int index){
+        if (sum == target){
+            resCombinationSum.add(new ArrayList<>(path));
+        }
+        for (int i = index; i < candidates.length; i++) {
+            if ((sum + candidates[i]) > target){
+                break;
+            }
+            sum += candidates[i];
+            path.add(candidates[i]);
+            combinationSumBack(candidates, target, path, i);
+            sum -= candidates[i];
+            path.remove(path.size() -1);
+        }
+    }
+
+    //考试最大难度
+    int ans = 0;
     public int maxConsecutiveAnswers(String answerKey, int k) {
         
         return Math.max(getLen(answerKey, 'T', k), getLen(answerKey, 'F',k));
