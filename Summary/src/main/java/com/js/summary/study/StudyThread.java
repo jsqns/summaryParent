@@ -35,12 +35,51 @@ class Solution {
         ListNode listNode3 = new ListNode(3,listNode4);
         ListNode listNode2 = new ListNode(2,listNode3);
         ListNode listNode1 = new ListNode(1, listNode2);
-        int[] arr = {10,1,2,7,6,1,5};
+        int[] arr = {1,2,3};
         Solution solution = new Solution();
-        for (List<String> list : solution.partition("aab")) {
+        for (List<Integer> list : solution.subsets(arr)) {
             System.out.println(list.toString());
         }
 
+    }
+    //子集2
+    List<List<Integer>> subsetsWithDupRes = new ArrayList<>();
+    List<Integer> subsetsWithDupPath = new ArrayList<>();
+    boolean[] subsetsWithDupCheck;
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        subsetsWithDupCheck = new boolean[nums.length];
+        Arrays.sort(nums);
+        Arrays.fill(subsetsWithDupCheck, false);
+        subsetsWithDupBack(0, nums);
+        return subsetsWithDupRes;
+    }
+    public void subsetsWithDupBack(int index, int[] nums){
+        subsetsWithDupRes.add(new ArrayList<>(subsetsWithDupPath));
+        for (int i = index; i < nums.length; i++) {
+            if (i >0 && nums[i] == nums[i -1] && !subsetsWithDupCheck[i -1]){
+                continue;
+            }
+            subsetsWithDupCheck[i] = true;
+            subsetsWithDupPath.add(nums[i]);
+            subsetsWithDupBack(i +1, nums);
+            subsetsWithDupCheck[i] = false;
+            subsetsWithDupPath.remove(subsetsWithDupPath.size() -1);
+        }
+    }
+    //子集
+    List<List<Integer>> subsetsRes = new ArrayList<>();
+    List<Integer> subsetsPath = new ArrayList<>();
+    public List<List<Integer>> subsets(int[] nums) {
+        subsetsBack(0, nums);
+        return subsetsRes;
+    }
+    public void subsetsBack(int index, int[] nums){
+        subsetsRes.add(new ArrayList<>(subsetsPath));
+        for (int i = index; i < nums.length; i++) {
+            subsetsPath.add(nums[i]);
+            subsetsBack(i +1, nums);
+            subsetsPath.remove(subsetsPath.size() -1);
+        }
     }
     //分割回文子字符串
     List<List<String>> partitionRes = new ArrayList<>();
@@ -158,6 +197,7 @@ class Solution {
         }
         return resNum;
     }
+    //复原ip地址
     List<String> res = new ArrayList<>();
     StringBuilder sb = new StringBuilder();
     public List<String> restoreIpAddresses(String s) {
