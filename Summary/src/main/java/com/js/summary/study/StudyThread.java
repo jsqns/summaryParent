@@ -35,12 +35,40 @@ class Solution {
         ListNode listNode3 = new ListNode(3,listNode4);
         ListNode listNode2 = new ListNode(2,listNode3);
         ListNode listNode1 = new ListNode(1, listNode2);
-        int[] arr = {1,2,3};
+        int[] arr = {4,6,7,7};
         Solution solution = new Solution();
-        for (List<Integer> list : solution.subsets(arr)) {
+        for (List<Integer> list : solution.findSubsequences(arr)) {
             System.out.println(list.toString());
         }
 
+    }
+    //递增子集
+    List<List<Integer>> findSubsequencesRes = new ArrayList<>();
+    List<Integer> findSubsequencesPath = new ArrayList<>();
+    boolean[] findSubsequencesCheck;
+    public List<List<Integer>> findSubsequences(int[] nums) {
+        findSubsequencesCheck = new boolean[nums.length];
+        Arrays.fill(findSubsequencesCheck, false);
+        findSubsequencesBack(0, nums);
+        return findSubsequencesRes;
+
+    }
+    public void findSubsequencesBack(int index, int[] nums){
+        if (findSubsequencesPath.size() >=2){
+            findSubsequencesRes.add(new ArrayList<>(findSubsequencesPath) );
+        }
+        Set<Integer> hs = new HashSet<>();
+        for (int i = index; i < nums.length; i++) {
+            if (!findSubsequencesPath.isEmpty() && nums[i] < findSubsequencesPath.get(findSubsequencesPath.size() -1) || hs.contains(nums[i])){
+                continue;
+            }
+            hs.add(nums[i]);
+            findSubsequencesCheck[i] = true;
+            findSubsequencesPath.add(nums[i]);
+            findSubsequencesBack(i +1, nums);
+            findSubsequencesCheck[i] = false;
+            findSubsequencesPath.remove(findSubsequencesPath.size() -1);
+        }
     }
     //子集2
     List<List<Integer>> subsetsWithDupRes = new ArrayList<>();
