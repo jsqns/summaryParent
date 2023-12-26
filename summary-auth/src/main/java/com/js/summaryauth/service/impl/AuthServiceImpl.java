@@ -1,31 +1,26 @@
 package com.js.summaryauth.service.impl;
 
 import com.js.common.RandomUtil;
-import com.js.common.comtants.CommonConstants;
 import com.js.common.jwt.JwtInfo;
 import com.js.common.jwt.JwtUtils.JwtHelper;
 import com.js.common.priKeyUtils.RsaKeyHelper;
 import com.js.common.rabbitmq.RabbitMqConfig;
-import com.js.common.rabbitmq.RabbitMqQueueNameEnum;
 import com.js.common.response.Result;
 import com.js.common.response.reqUtils.ResultUtils;
 import com.js.common.utils.mqUtils.RabbitMqUtil;
 import com.js.summaryauth.config.KeyConfig;
 import com.js.summaryauth.service.AuthService;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;

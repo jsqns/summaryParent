@@ -2,6 +2,7 @@ package com.js.common.utils.mqUtils;
 
 
 import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.ReturnedMessage;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
@@ -25,10 +26,11 @@ public class RabbitMqUtil {
                 }
             }
         });
-        rabbitTemplate.setReturnCallback(new RabbitTemplate.ReturnCallback() {
+        rabbitTemplate.setReturnsCallback(new RabbitTemplate.ReturnsCallback() {
             @Override
-            public void returnedMessage(Message message, int i, String s, String s1, String s2) {
-                System.out.println(new String(Arrays.toString(message.getBody()) +"触发"));
+            public void returnedMessage(ReturnedMessage returnedMessage) {
+                byte[] body = returnedMessage.getMessage().getBody();
+                System.out.println(Arrays.toString(body) + "触发");
             }
         });
         rabbitTemplate.convertAndSend(exchange,routingKey,object);

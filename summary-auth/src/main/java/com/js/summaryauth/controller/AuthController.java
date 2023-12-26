@@ -4,6 +4,7 @@ package com.js.summaryauth.controller;
 import com.js.common.jwt.JwtInfo;
 import com.js.common.response.Result;
 import com.js.summaryauth.service.AuthService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
+
 
 @RestController
 @RequestMapping("/auth/service")
